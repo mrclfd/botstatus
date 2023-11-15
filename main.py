@@ -74,14 +74,7 @@ async def _checkup():
                 result[bot] = {"status": "ON"}
         except BaseException:
             result[bot] = {"status": "OFF"}
-        await client(
-            messages.DeleteHistoryRequest(
-                peer=bot, 
-                max_id=0, 
-                just_clear=False,
-                revoke=True
-            )
-        )
+        await client.send_read_acknowledge(bot)
 
         log.info(f"[{result[bot]['status']}] {bot}")
 
