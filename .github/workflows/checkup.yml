@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
-          pip install telethon pytz
+          pip install telethon
       - name: Run Client
         env:
           SSTR: ${{ secrets.SSTR }}

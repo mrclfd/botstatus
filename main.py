@@ -7,8 +7,11 @@ from logging import(
 )
 
 from time import time
-from pytz import utc, timezone
-from datetime import datetime
+from datetime import(
+  datetime,
+  timedelta,
+  timezone
+)
 
 from asyncio import sleep
 
@@ -89,8 +92,7 @@ async def _checkup():
             else f"{bot}\n"
         )
     
-    utctime = datetime.now(utc)
-    current = utctime.astimezone(timezone("Asia/Jakarta"))
+    current = datetime.now(tz=timezone(timedelta(hours=7)))
     ftime = current.strftime("%b %-d, %-I:%M %p")
     
     msg += f"\n{ftime}"
