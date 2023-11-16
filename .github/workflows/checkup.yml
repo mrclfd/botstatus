@@ -9,23 +9,23 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Python3.11
+      - name: Setup Python3.11
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-      - name: Clone Repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           repository: ugorwx/bots
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
-          pip install python-decouple pytz telethon
+          pip install telethon pytz
       - name: Run Client
-        run: |
-          python3 main.py
         env:
           SSTR: ${{ secrets.SSTR }}
           BOTS: ${{ secrets.BOTS }}
           CHID: ${{ secrets.CHID }}
           EDIT: ${{ secrets.EDIT }}
+        run: |
+          python3 main.py

@@ -1,10 +1,10 @@
+from os import environ
+
 from logging import(
     basicConfig, 
     getLogger,
     INFO
 )
-
-from decouple import config
 
 from time import time
 from pytz import utc, timezone
@@ -24,10 +24,10 @@ log = getLogger()
 
 
 try:
-    SSTR = config("SSTR")
-    BOTS = config("BOTS").splitlines()
-    CHID = config("CHID", cast=int)
-    EDIT = config("EDIT", cast=int)
+    SSTR = environ.get("SSTR")
+    BOTS = environ.get("BOTS").splitlines()
+    CHID = int(environ.get("CHID"))
+    EDIT = int(environ.get("EDIT"))
 except BaseException as e:
     log.info(e)
     exit(1)
@@ -76,11 +76,10 @@ async def _checkup():
             result[bot] = {"status": "OFF"}
         await client.send_read_acknowledge(bot)
 
-        log.info(f"[{result[bot]['status']}] {bot}")
-
     end = time()
-    log.info("Completed!")
     
+    log.info(f"[{result[bot]['status']}] {bot}")
+
     msg = ""
 
     for bot, value in result.items():
