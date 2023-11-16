@@ -9,23 +9,22 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Python3.11
-        uses: actions/setup-python@v4
+      - name: Setup Python3.9
+        uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: 3.9
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
         with:
           repository: ugorwx/bots
       - name: Install Dependencies
         run: |
-          pip install --upgrade pip
           pip install telethon
       - name: Run Client
+        run: |
+          python3 main.py
         env:
           SSTR: ${{ secrets.SSTR }}
           BOTS: ${{ secrets.BOTS }}
           CHID: ${{ secrets.CHID }}
           EDIT: ${{ secrets.EDIT }}
-        run: |
-          python3 main.py
