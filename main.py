@@ -83,7 +83,7 @@ async def _checkup():
     
     log.info(f"[{result[bot]['status']}] {bot}")
 
-    msg = ""
+    msg = "@username: On | ~~@username~~: Off\n\n"
 
     for bot, value in result.items():
         msg += (
@@ -93,7 +93,7 @@ async def _checkup():
         )
     
     current = datetime.now(tz=timezone(timedelta(hours=7)))
-    ftime = current.strftime("%b %-d, %-I:%M %p")
+    ftime = current.strftime("%B %-d, %-I:%M %p")
     
     msg += f"\n{ftime}"
     
@@ -102,14 +102,14 @@ async def _checkup():
     mins = int((taken % 3600) // 60)
     secs = int(taken % 60)
     
-    msg += "\n" 
+    msg += "\ntooks " 
     
     if hours > 0:
         msg += f"{hours}h "
     if mins > 0:
         msg += f"{mins}m "
     if secs > 0:
-        msg += f"{secs}s "
+        msg += f"{secs}s"
 
 
     try:
